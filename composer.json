@@ -1,0 +1,42 @@
+{
+    "name": "clarkwinkelmann/flarum-ext-follow-tags-prompt",
+    "description": "Prompt user for tags to follow after registration",
+    "keywords": [
+        "flarum"
+    ],
+    "type": "flarum-extension",
+    "license": "MIT",
+    "require": {
+        "flarum/core": ">=0.1.0-beta.13 <0.1.0-beta.14",
+        "flarum/tags": "*",
+        "fof/follow-tags": ">=0.4.4",
+        "ext-json": "*"
+    },
+    "authors": [
+        {
+            "name": "Clark Winkelmann",
+            "email": "clark.winkelmann@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ClarkWinkelmann\\FollowTagsPrompt\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Follow Tags Prompt",
+            "icon": {
+                "name": "fas fa-user-tag",
+                "backgroundColor": "#684ba6",
+                "color": "#fff"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true
+}

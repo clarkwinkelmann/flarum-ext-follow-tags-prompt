@@ -1,0 +1,58 @@
+.ChooseTagsToFollowModal {
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .Modal-content {
+        overflow: visible; // To not hide the content of the dropdowns
+        background-color: @control-bg; // Switch header and body colors so we can see the buttons
+    }
+
+    .Modal-body {
+        background-color: @body-bg; // Switch header and body colors so we can see the buttons
+        border-radius: 0 0 @border-radius @border-radius; // To preserve radius even with overflow:visible
+    }
+
+    .Form-group {
+        margin-top: 20px;
+        display: flex;
+        padding: 0 10px; // Same as table cells so buttons align
+
+        .Button--primary {
+            margin-left: auto;
+        }
+    }
+
+    td {
+        padding: 5px 10px;
+    }
+
+    .tooltip {
+        // The invisible tooltip prevents clicking on the button when used in a modal
+        pointer-events: none;
+    }
+
+    .TagName {
+        // Same values as .SelectTagList
+        font-size: 16px;
+
+        .icon {
+            margin-right: 10px;
+        }
+    }
+
+    .TagFollow {
+        text-align: right;
+    }
+
+    .TagDescription {
+        // Same values as .SelectTagList
+        color: @muted-color;
+        font-size: 12px;
+    }
+
+    tr:hover {
+        background-color: @body-bg;
+    }
+}
