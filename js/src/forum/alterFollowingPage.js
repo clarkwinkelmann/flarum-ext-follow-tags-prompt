@@ -3,8 +3,18 @@ import app from 'flarum/app';
 import DiscussionList from 'flarum/components/DiscussionList';
 import IndexPage from 'flarum/components/IndexPage';
 import Button from 'flarum/components/Button';
-import isFollowingPage from '@fof-follow-tags/utils/isFollowingPage';
 import ChooseTagsToFollowModal from './components/ChooseTagsToFollowModal';
+
+/* global flarum */
+
+// We wrap the import in a function, that way the order the extensions are loaded in doesn't matter
+function isFollowingPage() {
+    if (!flarum.extensions['fof-follow-tags']) {
+        return false;
+    }
+
+    return flarum.extensions['fof-follow-tags'].utils.isFollowingPage();
+}
 
 export default function () {
     extend(DiscussionList.prototype, 'requestParams', function (params) {

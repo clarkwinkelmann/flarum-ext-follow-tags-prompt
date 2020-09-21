@@ -16,9 +16,12 @@ export default function () {
         // And that new updates are available
         // And that the user *must* accept them
         if (app.current instanceof IndexPage && app.forum.attribute('clarkwinkelmannFollowTagsShouldPrompt')) {
-            app.modal.show(new ChooseTagsToFollowModal({
+            // This code is affected by the blue backdrop of death https://github.com/flarum/core/issues/1813
+            // This can't be reliably reproduced, but happens mostly on Firefox
+            // setTimeout doesn't solve the issue but brings a slight improvement, so we'll go with that for now
+            setTimeout(() => app.modal.show(new ChooseTagsToFollowModal({
                 hasNotChosenYet: true,
-            }));
+            })), 0);
         }
 
         initialized = true;

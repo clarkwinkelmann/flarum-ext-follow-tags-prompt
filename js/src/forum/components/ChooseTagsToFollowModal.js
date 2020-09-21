@@ -3,9 +3,8 @@ import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
 import sortTags from 'flarum/tags/utils/sortTags';
 import tagIcon from 'flarum/tags/helpers/tagIcon';
-import SubscriptionMenu from '@fof-follow-tags/components/SubscriptionMenu';
 
-/* global m */
+/* global m, flarum */
 
 export default class ChooseTagsToFollowModal extends Modal {
     className() {
@@ -17,6 +16,8 @@ export default class ChooseTagsToFollowModal extends Modal {
     }
 
     content() {
+        const SubscriptionMenu = flarum.extensions['fof-follow-tags'] && flarum.extensions['fof-follow-tags'].components.SubscriptionMenu;
+
         return m('.Modal-body', [
             SubscriptionMenu ? m('table', m('tbody', sortTags(app.store.all('tags'))
                 .filter(tag => tag.attribute('clarkwinkelmannFollowTagsPromptAvailable'))
