@@ -36,6 +36,8 @@
     .TagName {
         // Same values as .SelectTagList
         font-size: 16px;
+        cursor: pointer;
+        white-space: pre;
 
         .icon {
             margin-right: 10px;
@@ -44,6 +46,7 @@
 
     .TagFollow {
         text-align: right;
+        min-width: 190px; // Prevent split-dropdown from spanning two lines, at least in English
     }
 
     .TagDescription {

@@ -4,7 +4,7 @@ import Button from 'flarum/components/Button';
 import sortTags from 'flarum/tags/utils/sortTags';
 import tagIcon from 'flarum/tags/helpers/tagIcon';
 
-/* global m, flarum */
+/* global m, $, flarum */
 
 export default class ChooseTagsToFollowModal extends Modal {
     className() {
@@ -25,6 +25,9 @@ export default class ChooseTagsToFollowModal extends Modal {
                     m('td.TagName', {
                         style: {
                             color: tag.color(),
+                        },
+                        onclick: event => {
+                            $(event.target).parents('tr').find('.SubscriptionMenu-button').click();
                         },
                     }, [
                         tagIcon(tag),
@@ -70,5 +73,10 @@ export default class ChooseTagsToFollowModal extends Modal {
                 }),
             ]),
         ]);
+    }
+
+    onsubmit(event) {
+        // fof/follow-tags is using buttons without type, which cause the modal form to submit itself without this
+        event.preventDefault();
     }
 }
