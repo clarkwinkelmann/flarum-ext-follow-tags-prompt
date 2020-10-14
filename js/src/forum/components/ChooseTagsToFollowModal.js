@@ -16,7 +16,22 @@ export default class ChooseTagsToFollowModal extends Modal {
     }
 
     content() {
-        const SubscriptionMenu = flarum.extensions['fof-follow-tags'] && flarum.extensions['fof-follow-tags'].components.SubscriptionMenu;
+        const OriginalSubscriptionMenu = flarum.extensions['fof-follow-tags'] && flarum.extensions['fof-follow-tags'].components.SubscriptionMenu;
+
+        let SubscriptionMenu;
+
+        if (OriginalSubscriptionMenu) {
+            SubscriptionMenu = class SubscriptionMenu extends OriginalSubscriptionMenu {
+                view() {
+                    const vdom = super.view();
+
+                    // Remove .App-primaryControl class from dropdowns
+                    vdom.attrs.className = vdom.attrs.className.replace('App-primaryControl', '');
+
+                    return vdom;
+                }
+            }
+        }
 
         return m('.Modal-body', [
             SubscriptionMenu ? m('table', m('tbody', sortTags(app.store.all('tags'))
