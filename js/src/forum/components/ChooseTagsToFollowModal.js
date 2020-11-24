@@ -33,8 +33,8 @@ export default class ChooseTagsToFollowModal extends Modal {
             }
         }
 
-        return m('.Modal-body', [
-            SubscriptionMenu ? m('table', m('tbody', sortTags(app.store.all('tags'))
+        return [
+            m('.Modal-body.ChooseTagsToFollowModal-scroll', SubscriptionMenu ? m('table', m('tbody', sortTags(app.store.all('tags'))
                 .filter(tag => tag.attribute('clarkwinkelmannFollowTagsPromptAvailable'))
                 .map(tag => m('tr', [
                     m('td.TagName', {
@@ -50,8 +50,8 @@ export default class ChooseTagsToFollowModal extends Modal {
                     ]),
                     m('td.TagDescription', tag.description()),
                     m('td.TagFollow', SubscriptionMenu.component({tag})),
-                ])))) : 'Error: Follow Tags is not enabled',
-            m('.Form-group', [
+                ])))) : 'Error: Follow Tags is not enabled'),
+            m('.Modal-body.ChooseTagsToFollowModal-footer', [
                 this.props.hasNotChosenYet ? Button.component({
                     className: 'Button Button--link',
                     children: app.translator.trans('clarkwinkelmann-follow-tags-prompt.forum.modal.later'),
@@ -87,7 +87,7 @@ export default class ChooseTagsToFollowModal extends Modal {
                     }
                 }),
             ]),
-        ]);
+        ];
     }
 
     onsubmit(event) {
