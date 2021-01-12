@@ -6,6 +6,8 @@ import tagIcon from 'flarum/tags/helpers/tagIcon';
 
 /* global m, $, flarum */
 
+let SubscriptionMenu;
+
 export default class ChooseTagsToFollowModal extends Modal {
     className() {
         return 'ChooseTagsToFollowModal';
@@ -18,9 +20,9 @@ export default class ChooseTagsToFollowModal extends Modal {
     content() {
         const OriginalSubscriptionMenu = flarum.extensions['fof-follow-tags'] && flarum.extensions['fof-follow-tags'].components.SubscriptionMenu;
 
-        let SubscriptionMenu;
-
-        if (OriginalSubscriptionMenu) {
+        // If the extended class does not exist, create it
+        // We need to create it a single time, otherwise Mithril cannot know it's the same component
+        if (OriginalSubscriptionMenu && !SubscriptionMenu) {
             SubscriptionMenu = class SubscriptionMenu extends OriginalSubscriptionMenu {
                 view() {
                     const vdom = super.view();
@@ -49,24 +51,24 @@ export default class ChooseTagsToFollowModal extends Modal {
                         tag.name(),
                     ]),
                     m('td.TagDescription', tag.description()),
-                    m('td.TagFollow', SubscriptionMenu.component({tag})),
+                    m('td.TagFollow', SubscriptionMenu.component({
+                        model: tag,
+                    })),
                 ])))) : 'Error: Follow Tags is not enabled'),
             m('.Modal-body.ChooseTagsToFollowModal-footer', [
-                this.props.hasNotChosenYet ? Button.component({
+                this.attrs.hasNotChosenYet ? Button.component({
                     className: 'Button Button--link',
-                    children: app.translator.trans('clarkwinkelmann-follow-tags-prompt.forum.modal.later'),
                     onclick() {
                         app.modal.close();
                     },
-                }) : null,
+                }, app.translator.trans('clarkwinkelmann-follow-tags-prompt.forum.modal.later')) : null,
                 Button.component({
                     loading: this.loading,
                     className: 'Button Button--primary',
-                    children: app.translator.trans('clarkwinkelmann-follow-tags-prompt.forum.modal.continue'),
                     onclick: () => {
                         // If we are not in the "forced to choose" mode, there's no need to send a request again
                         // since it's already marked as done
-                        if (!this.props.hasNotChosenYet) {
+                        if (!this.attrs.hasNotChosenYet) {
                             app.modal.close();
                             return;
                         }
@@ -85,7 +87,7 @@ export default class ChooseTagsToFollowModal extends Modal {
                             throw err;
                         });
                     }
-                }),
+                }, app.translator.trans('clarkwinkelmann-follow-tags-prompt.forum.modal.continue')),
             ]),
         ];
     }

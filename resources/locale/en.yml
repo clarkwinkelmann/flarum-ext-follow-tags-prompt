@@ -9,7 +9,6 @@ clarkwinkelmann-follow-tags-prompt:
 
     admin:
         settings:
-            title: Follow Tags Prompt settings
             buttonOnFollowingPage: Show button on Following page
             allDiscussionsOnFollowingPageForGuests: Show all discussions on the Following page for guests
             availableTagStrategy: Tags to offer in modal

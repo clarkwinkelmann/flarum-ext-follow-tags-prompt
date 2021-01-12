@@ -14,8 +14,12 @@ The list of tags shown in the modal can be customized.
 By default, a button to access the modal is also added to the "Following" page.
 This can be disabled in the settings.
 
-Another mostly unrelated feature present in this extension is the ability to make the "Following" page display all discussions without filtering for guests instead of showing an empty page.
-This is disabled by default.
+The extension also contains two other unrelated features:
+
+- Ability to make the "Following" page display all discussions without filtering for guests instead of showing an empty page.
+- Ability to make the "Following" page the homepage (under Basics)
+
+Those options are disabled by default.
 
 ## Installation
 
@@ -31,6 +35,8 @@ I might publish simple bugfixes or compatibility updates for free.
 You can [contact me](https://clarkwinkelmann.com/flarum) to sponsor additional features or updates.
 
 Support is offered on a "best effort" basis through the Flarum community thread.
+
+**Sponsors**: [GitHub Sponsors](https://github.com/sponsors/clarkwinkelmann), [Andrew MacLean](https://andrewdmaclean.com/)
 
 ## Links
 

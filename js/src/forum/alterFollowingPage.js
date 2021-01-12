@@ -1,6 +1,6 @@
 import {extend} from 'flarum/extend';
 import app from 'flarum/app';
-import DiscussionList from 'flarum/components/DiscussionList';
+import DiscussionListState from 'flarum/states/DiscussionListState';
 import IndexPage from 'flarum/components/IndexPage';
 import Button from 'flarum/components/Button';
 import ChooseTagsToFollowModal from './components/ChooseTagsToFollowModal';
@@ -17,7 +17,7 @@ function isFollowingPage() {
 }
 
 export default function () {
-    extend(DiscussionList.prototype, 'requestParams', function (params) {
+    extend(DiscussionListState.prototype, 'requestParams', function (params) {
         if (!isFollowingPage() || app.session.user || !app.forum.attribute('clarkwinkelmannFollowTagsPromptAllDiscussionsForGuests')) return;
 
         // If this is the following page and we are guest, show all discussions like if it was the homepage
@@ -35,7 +35,7 @@ export default function () {
             Button.component({
                 className: 'Button Button--primary',
                 onclick() {
-                    app.modal.show(new ChooseTagsToFollowModal());
+                    app.modal.show(ChooseTagsToFollowModal);
                 },
             }, app.translator.trans('clarkwinkelmann-follow-tags-prompt.forum.controls.choose')),
             -10

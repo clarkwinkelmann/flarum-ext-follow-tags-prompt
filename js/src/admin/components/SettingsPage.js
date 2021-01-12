@@ -1,5 +1,5 @@
 import app from 'flarum/app';
-import BaseSettingsModal from 'flarum/components/SettingsModal';
+import ExtensionPage from 'flarum/components/ExtensionPage';
 import Select from 'flarum/components/Select';
 import Switch from 'flarum/components/Switch';
 import sortTags from 'flarum/tags/utils/sortTags';
@@ -9,12 +9,8 @@ import sortTags from 'flarum/tags/utils/sortTags';
 const settingsPrefix = 'clarkwinkelmann-follow-tags-prompt.';
 const translationPrefix = 'clarkwinkelmann-follow-tags-prompt.admin.settings.';
 
-export default class SettingsModal extends BaseSettingsModal {
-    title() {
-        return app.translator.trans(translationPrefix + 'title');
-    }
-
-    form() {
+export default class SettingsPage extends ExtensionPage {
+    content() {
         let tagIds = [];
 
         try {
@@ -27,7 +23,7 @@ export default class SettingsModal extends BaseSettingsModal {
             tagIds = [];
         }
 
-        return [
+        return m('.ExtensionPage-settings', m('.container', [
             m('.Form-group', [
                 m('label', Switch.component({
                     state: this.setting(settingsPrefix + 'buttonOnFollowingPage', '1')() === '1',
@@ -74,6 +70,7 @@ export default class SettingsModal extends BaseSettingsModal {
                     }, tag.name())),
                 ]);
             }) : null,
-        ];
+            m('.Form-group', this.submitButton()),
+        ]));
     }
 }
