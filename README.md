@@ -36,9 +36,10 @@ You can [contact me](https://clarkwinkelmann.com/flarum) to sponsor additional f
 
 Support is offered on a "best effort" basis through the Flarum community thread.
 
-**Sponsors**: [GitHub Sponsors](https://github.com/sponsors/clarkwinkelmann), [Andrew MacLean](https://andrewdmaclean.com/)
+**Sponsors**: [Talkie](https://talkie.vn/), [Andrew MacLean](https://andrewdmaclean.com/)
 
 ## Links
 
 - [GitHub](https://github.com/clarkwinkelmann/flarum-ext-follow-tags-prompt)
 - [Packagist](https://packagist.org/packages/clarkwinkelmann/flarum-ext-follow-tags-prompt)
+- [Discuss](https://discuss.flarum.org/d/25994)
