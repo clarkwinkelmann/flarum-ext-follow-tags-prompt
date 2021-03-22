@@ -36,7 +36,7 @@ You can [contact me](https://clarkwinkelmann.com/flarum) to sponsor additional f
 
 Support is offered on a "best effort" basis through the Flarum community thread.
 
-**Sponsors**: [Talkie](https://talkie.vn/), [Andrew MacLean](https://andrewdmaclean.com/)
+**Sponsors**: [Talkie](https://talkie.vn/), [Andrew MacLean](https://andrewdmaclean.com/), [ctml](https://discuss.flarum.org/u/ctml)
 
 ## Links
 
