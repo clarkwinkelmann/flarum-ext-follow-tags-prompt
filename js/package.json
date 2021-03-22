@@ -1,5 +1,5 @@
 {
-    "name": "@clarkwinkelmann/flarum-ext-follow-tags-prompt",
+    "name": "@clarkwinkelmann/follow-tags-prompt",
     "version": "0.0.0",
     "private": true,
     "dependencies": {

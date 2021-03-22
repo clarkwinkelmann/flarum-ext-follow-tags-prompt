@@ -22,11 +22,11 @@ return [
     new Extend\Locales(__DIR__ . '/resources/locale'),
 
     (new Extend\ApiSerializer(ForumSerializer::class))
-        ->mutate(function (ForumSerializer $serializer) {
+        ->attributes(function (ForumSerializer $serializer): array {
             /**
              * @var $settings SettingsRepositoryInterface
              */
-            $settings = app(SettingsRepositoryInterface::class);
+            $settings = resolve(SettingsRepositoryInterface::class);
 
             $actor = $serializer->getActor();
 
