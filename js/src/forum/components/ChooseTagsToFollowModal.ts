@@ -1,14 +1,20 @@
-import app from 'flarum/app';
-import Modal from 'flarum/components/Modal';
-import Button from 'flarum/components/Button';
+import app from 'flarum/forum/app';
+import Modal from 'flarum/common/components/Modal';
+import Button from 'flarum/common/components/Button';
+import Model from "flarum/common/Model";
 import sortTags from 'flarum/tags/utils/sortTags';
 import tagIcon from 'flarum/tags/helpers/tagIcon';
 
-/* global m, $, flarum */
+let SubscriptionMenu: any;
 
-let SubscriptionMenu;
+interface ChooseTagsToFollowModalAttrs {
+    hasNotChosenYet?: boolean
+}
 
+// @ts-ignore Flarum missing view method type-hint
 export default class ChooseTagsToFollowModal extends Modal {
+    attrs!: ChooseTagsToFollowModalAttrs
+
     className() {
         return 'ChooseTagsToFollowModal';
     }
@@ -23,7 +29,7 @@ export default class ChooseTagsToFollowModal extends Modal {
         // If the extended class does not exist, create it
         // We need to create it a single time, otherwise Mithril cannot know it's the same component
         if (OriginalSubscriptionMenu && !SubscriptionMenu) {
-            SubscriptionMenu = class SubscriptionMenu extends OriginalSubscriptionMenu {
+            SubscriptionMenu = class extends OriginalSubscriptionMenu {
                 view() {
                     const vdom = super.view();
 
@@ -35,26 +41,26 @@ export default class ChooseTagsToFollowModal extends Modal {
             }
         }
 
+        const tags = sortTags(Model.hasMany('clarkwinkelmannFollowTagsList').call(app.forum));
+
         return [
-            m('.Modal-body.ChooseTagsToFollowModal-scroll', SubscriptionMenu ? m('table', m('tbody', sortTags(app.store.all('tags'))
-                .filter(tag => tag.attribute('clarkwinkelmannFollowTagsPromptAvailable'))
-                .map(tag => m('tr', [
-                    m('td.TagName', {
-                        style: {
-                            color: tag.color(),
-                        },
-                        onclick: event => {
-                            $(event.target).parents('tr').find('.SubscriptionMenu-button').click();
-                        },
-                    }, [
-                        tagIcon(tag),
-                        tag.name(),
-                    ]),
-                    m('td.TagDescription', tag.description()),
-                    m('td.TagFollow', SubscriptionMenu.component({
-                        model: tag,
-                    })),
-                ])))) : 'Error: Follow Tags is not enabled'),
+            m('.Modal-body.ChooseTagsToFollowModal-scroll', SubscriptionMenu ? m('table', m('tbody', tags.map(tag => m('tr', [
+                m('td.TagName', {
+                    style: {
+                        color: tag.color(),
+                    },
+                    onclick: (event: Event) => {
+                        $(event.target as HTMLElement).parents('tr').find('.SubscriptionMenu-button').trigger('click');
+                    },
+                }, [
+                    tagIcon(tag),
+                    tag.name(),
+                ]),
+                m('td.TagDescription', tag.description()),
+                m('td.TagFollow', SubscriptionMenu.component({
+                    model: tag,
+                })),
+            ])))) : 'Error: Follow Tags is not enabled'),
             m('.Modal-body.ChooseTagsToFollowModal-footer', [
                 this.attrs.hasNotChosenYet ? Button.component({
                     className: 'Button Button--link',
@@ -92,7 +98,8 @@ export default class ChooseTagsToFollowModal extends Modal {
         ];
     }
 
-    onsubmit(event) {
+    // @ts-ignore Missing event type-hint in Flarum
+    onsubmit(event: Event) {
         // fof/follow-tags is using buttons without type, which cause the modal form to submit itself without this
         event.preventDefault();
     }

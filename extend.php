@@ -3,11 +3,11 @@
 namespace ClarkWinkelmann\FollowTagsPrompt;
 
 use Carbon\Carbon;
+use Flarum\Api\Controller\ShowForumController;
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Extend;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\Tags\Api\Serializer\TagSerializer;
-use Flarum\Tags\Tag;
 use Flarum\User\Event\Saving;
 use Flarum\User\Exception\PermissionDeniedException;
 
@@ -37,10 +37,12 @@ return [
             ];
         }),
 
-    (new Extend\ApiSerializer(TagSerializer::class))
-        ->attribute('clarkwinkelmannFollowTagsPromptAvailable', function (TagSerializer $serializer, Tag $tag) {
-            return AvailableTagsStrategy::isAvailable($tag);
-        }),
+    (new Extend\ApiSerializer(ForumSerializer::class))
+        ->hasMany('clarkwinkelmannFollowTagsList', TagSerializer::class),
+
+    (new Extend\ApiController(ShowForumController::class))
+        ->addInclude(['clarkwinkelmannFollowTagsList'])
+        ->prepareDataForSerialization(LoadPromptTags::class),
 
     (new Extend\Event())
         ->listen(Saving::class, function (Saving $event) {
