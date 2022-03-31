@@ -14,7 +14,7 @@ The list of tags shown in the modal can be customized.
 By default, a button to access the modal is also added to the "Following" page.
 This can be disabled in the settings.
 
-The extension also contains two other unrelated features:
+The extension also contains two other loosely related features:
 
 - Ability to make the "Following" page display all discussions without filtering for guests instead of showing an empty page.
 - Ability to make the "Following" page the homepage (under Basics)
