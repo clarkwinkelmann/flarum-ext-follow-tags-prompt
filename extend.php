@@ -41,7 +41,8 @@ return [
         ->hasMany('clarkwinkelmannFollowTagsList', TagSerializer::class),
 
     (new Extend\ApiController(ShowForumController::class))
-        ->addInclude(['clarkwinkelmannFollowTagsList'])
+        // Needs to load parent, otherwise the Flarum Tags IndexPage side navigation will think second-level tags are first-level tags
+        ->addInclude(['clarkwinkelmannFollowTagsList.parent'])
         ->prepareDataForSerialization(LoadPromptTags::class),
 
     (new Extend\Event())
