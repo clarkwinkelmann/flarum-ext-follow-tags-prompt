@@ -2,7 +2,6 @@ import {extend} from 'flarum/common/extend';
 import app from 'flarum/forum/app';
 import DiscussionListState from 'flarum/forum/states/DiscussionListState';
 import IndexPage from 'flarum/forum/components/IndexPage';
-import ItemList from 'flarum/common/utils/ItemList';
 import Button from 'flarum/common/components/Button';
 import ChooseTagsToFollowModal from './components/ChooseTagsToFollowModal';
 
@@ -12,7 +11,7 @@ function isFollowingPage() {
 }
 
 export default function () {
-    extend(DiscussionListState.prototype, 'requestParams', function (params: any) {
+    extend(DiscussionListState.prototype, 'requestParams', function (params) {
         if (!isFollowingPage() || app.session.user || !app.forum.attribute('clarkwinkelmannFollowTagsPromptAllDiscussionsForGuests')) return;
 
         // If this is the following page and we are guest, show all discussions like if it was the homepage
@@ -21,7 +20,7 @@ export default function () {
         delete params.filter.subscription;
     });
 
-    extend(IndexPage.prototype, 'viewItems', function (items: ItemList) {
+    extend(IndexPage.prototype, 'viewItems', function (items) {
         if (!isFollowingPage() || !app.session.user || !app.forum.attribute('clarkwinkelmannFollowTagsPromptButton')) return;
 
         items.add(
@@ -29,7 +28,7 @@ export default function () {
             Button.component({
                 className: 'Button Button--primary',
                 onclick() {
-                    app.modal.show(ChooseTagsToFollowModal, { /* Flarum type-hints require attrs */});
+                    app.modal.show(ChooseTagsToFollowModal);
                 },
             }, app.translator.trans('clarkwinkelmann-follow-tags-prompt.forum.controls.choose')),
             -10

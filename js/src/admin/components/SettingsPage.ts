@@ -3,7 +3,7 @@ import app from 'flarum/admin/app';
 import ExtensionPage from 'flarum/admin/components/ExtensionPage';
 import Select from 'flarum/common/components/Select';
 import Switch from 'flarum/common/components/Switch';
-import sortTags from 'flarum/tags/utils/sortTags';
+import sortTags from 'flarum/tags/common/utils/sortTags';
 import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
 
 const settingsPrefix = 'clarkwinkelmann-follow-tags-prompt.';
@@ -101,7 +101,7 @@ export default class SettingsPage extends ExtensionPage {
         }
 
         return sortTags(app.store.all('tags')).map(tag => {
-            const state = tagIds.indexOf(tag.id()) !== -1;
+            const state = tagIds.indexOf(tag.id()!) !== -1;
 
             return m('.Form-group', [
                 m('label', Switch.component({
